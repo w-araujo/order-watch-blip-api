@@ -25,7 +25,67 @@ namespace OrderWatch.Controllers
             try
             {
                 var purchases = _dbConnection.Purchases
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.UserId,
+                        p.ProductId,
+                        p.Status,
+                        p.IsPaid,
+                        p.CreatedAt,
+                        p.UpdatedAt,
+                        User = _dbConnection.Users.FirstOrDefault(u => u.Id == p.UserId),
+                        Product = _dbConnection.Products.FirstOrDefault(pr => pr.Id == p.ProductId),
+                    }).ToList();
+
+                var purchasesJson = JsonSerializer.Serialize(purchases);
+                return Ok(purchasesJson);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar as compras: {ex.Message}");
+            }
+        }
+
+        [HttpGet("not-delivered", Name = "PurchaseNotDelivered")]
+        public IActionResult GetPurchasesNotDelivered()
+        {
+            try
+            {
+                var purchases = _dbConnection.Purchases
+                    .Where(p => p.Status != "Entregue")
+                    .OrderBy(p => p.CreatedAt)
                     .Select(p => new 
+                    {
+                        p.Id,
+                        p.UserId,
+                        p.ProductId,
+                        p.Status,
+                        p.IsPaid,
+                        p.CreatedAt,
+                        p.UpdatedAt,
+                        User = _dbConnection.Users.FirstOrDefault(u => u.Id == p.UserId),
+                        Product = _dbConnection.Products.FirstOrDefault(pr => pr.Id == p.ProductId),
+                    }).ToList();
+
+                var purchasesJson = JsonSerializer.Serialize(purchases);
+                return Ok(purchasesJson);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar as compras: {ex.Message}");
+            }
+        }
+
+        [HttpGet("delivered", Name = "PurchaseDelivered")]
+        public IActionResult GetPurchasesDelivered()
+        {
+            try
+            {
+                var purchases = _dbConnection.Purchases
+                    .Where(p => p.Status == "Entregue")
+                    .OrderBy(p => p.CreatedAt)
+                    .Select(p => new
                     {
                         p.Id,
                         p.UserId,
@@ -65,7 +125,7 @@ namespace OrderWatch.Controllers
                         pu.Purchase.IsPaid,
                         pu.Purchase.CreatedAt,
                         pu.Purchase.UpdatedAt,
-                        User = pu.User,
+                        User = new { pu.User.Id, pu.User.Name, pu.User.Email, pu.User.Birthdate },
                         Product = _dbConnection.Products.FirstOrDefault(pr => pr.Id == pu.Purchase.ProductId),
                     }).ToList();
 

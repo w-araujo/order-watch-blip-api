@@ -3,6 +3,16 @@ using OrderWatch.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",
+                                "https://localhost:7034");
+        });
+});
+
 // Add services to the container.
 builder.Services.AddDbContext<DbConnection>(options =>
     options.UseSqlite("Data Source=orderWatch.db"));
@@ -30,6 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 
