@@ -15,10 +15,10 @@ The main objective of the API is to register users, products and purchases, and 
 
 The objective of this project is the possibility of adding users, products and purchases to a database, and then displaying this ordered data in a dynamic carousel through the Blip platform, and providing information to the plugin.
 
-  ![Carrousel Blip](https://github.com/w-araujo/car-blip-api/blob/main/ow-blip-carrousel.png)
-  ![Builder Blip](https://github.com/w-araujo/car-blip-api/blob/main/ow-blip-builder.png)
-  ![Atendimento Blip](https://github.com/w-araujo/car-blip-api/blob/main/ow-blip-atendimento.png)
-  ![Swagger api](https://github.com/w-araujo/car-blip-api/blob/main/ow-api-swagger.png)
+  ![Carrousel Blip](https://github.com/w-araujo/order-watch-blip-api/blob/main/ow-blip-carrousel.png)
+  ![Atendimento Blip](https://github.com/w-araujo/order-watch-blip-api/blob/main/ow-blip-atendimento.png)
+  ![Builder Blip](https://github.com/w-araujo/order-watch-blip-api/blob/main/ow-blip-builder.png)
+  ![Swagger api](https://github.com/w-araujo/order-watch-blip-api/blob/main/ow-api-swagger.png)
 
 ## 🛠️ Technologies Used
 - [C#](https://learn.microsoft.com/pt-br/dotnet/csharp/)
